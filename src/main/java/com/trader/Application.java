@@ -1,13 +1,13 @@
-package com.gmenti.trader;
+package com.trader;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HttpServer {
-
-	public static void start() {
-		SpringApplication.run(HttpServer.class);
+public class Application {
+	
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class);
 	}
 	
 }
