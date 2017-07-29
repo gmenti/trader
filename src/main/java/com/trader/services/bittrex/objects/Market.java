@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Market {
     private static final SimpleDateFormat dateFormmatter = new SimpleDateFormat("yyyy-MM-dd");
     private String marketCurrency;
