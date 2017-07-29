@@ -17,6 +17,6 @@ class BaseController {
 
 	@RequestMapping("/bittrex")
 	Response home() {
-		return bittrexService.getMarkets();
+		return bittrexService.getMarketSummaries();
 	}
 }

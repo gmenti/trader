@@ -8,20 +8,26 @@ import java.util.Date;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Market extends BaseObject {
-    public String marketCurrency;
-    public String baseCurrency;
-    public String marketCurrencyLong;
-    public String baseCurrencyLong;
-    public Double minTradeSize;
+public class MarketSummary extends BaseObject {
     public String marketName;
-    public Boolean isActive;
+    public Double high;
+    public Double low;
+    public Double volume;
+    public Double baseVolume;
+    public Double bid;
+    public Double ask;
+    public Integer openBuyOrders;
+    public Integer openSellOrders;
+    public Double prevDay;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING)
+    public Date timeStamp;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING)
     public Date created;
 
     @JsonCreator
-    Market(Map<String, Object> map) {
+    MarketSummary(Map<String, Object> map) {
         super(map);
     }
 }
