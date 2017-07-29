@@ -1,11 +1,12 @@
 package com.trader.controllers;
 
 import com.trader.services.bittrex.BittrexService;
-import org.springframework.stereotype.Controller;
+import com.trader.services.bittrex.responses.Response;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @ResponseBody
 class BaseController {
 	private final BittrexService bittrexService;
@@ -15,7 +16,7 @@ class BaseController {
 	}
 
 	@RequestMapping("/bittrex")
-	String home() {
-		return bittrexService.getDefaultUri();
+	Response home() {
+		return bittrexService.getMarkets();
 	}
 }
