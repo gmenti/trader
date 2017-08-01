@@ -5,8 +5,6 @@ import com.trader.services.bittrex.responses.MarketsResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URL;
-
 @Service
 public class BittrexService {
     private final static String BASE_URI = "https://bittrex.com/api/";
