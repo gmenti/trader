@@ -2,6 +2,7 @@ package com.trader.controllers;
 
 import com.trader.services.bittrex.BittrexService;
 import com.trader.services.bittrex.responses.Response;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,11 @@ class BaseController {
 
 	@RequestMapping("/bittrex")
 	Response home() {
-		return bittrexService.getMarketSummaries();
+		return bittrexService.getCurrencies();
+	}
+
+	@RequestMapping("/bittrex/{market}")
+	Response getTicker(@PathVariable("market") String market) {
+		return bittrexService.getTicker(market);
 	}
 }
