@@ -2,12 +2,10 @@ package com.trader.services.bittrex.objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 import java.util.Map;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Currency extends BaseObject {
     public String currency;
     public String currencyLong;
