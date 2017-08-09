@@ -25,8 +25,6 @@ public class CurrencyService {
         currency.setFee(fee);
         currency.setBaseAddress(baseAddress);
 
-        System.out.println(abbreviation);
-
         return repository.save(currency);
     }
 
