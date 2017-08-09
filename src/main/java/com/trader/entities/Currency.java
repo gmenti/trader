@@ -1,72 +1,72 @@
 package com.trader.entities;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 public class Currency {
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    @NotNull
-    @Length(min = 3, max = 25)
-    private String name;
+	@NotNull
+	@Length(min = 3, max = 25)
+	private String name;
 
-    @NotNull
-    @Length(min = 1, max = 10)
-    private String abbreviation;
+	@NotNull
+	@Length(min = 1, max = 10)
+	private String abbreviation;
 
-    @NotNull
-    @DecimalMin("0")
-    private Integer confirmations;
+	@NotNull
+	@DecimalMin("0")
+	private Integer confirmations;
 
-    @NotNull
-    private Double fee;
-    private String baseAddress;
+	@NotNull
+	private Double fee;
+	private String baseAddress;
 
-    public String getName() {
-        return name;
-    }
+	public String getAbbreviation() {
+		return abbreviation;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getBaseAddress() {
+		return baseAddress;
+	}
 
-    public String getAbbreviation() {
-        return abbreviation;
-    }
+	public Integer getConfirmations() {
+		return confirmations;
+	}
 
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
+	public Double getFee() {
+		return fee;
+	}
 
-    public Integer getConfirmations() {
-        return confirmations;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setConfirmations(Integer confirmations) {
-        this.confirmations = confirmations;
-    }
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
+	}
 
-    public Double getFee() {
-        return fee;
-    }
+	public void setBaseAddress(String baseAddress) {
+		this.baseAddress = baseAddress;
+	}
 
-    public void setFee(Double fee) {
-        this.fee = fee;
-    }
+	public void setConfirmations(Integer confirmations) {
+		this.confirmations = confirmations;
+	}
 
-    public String getBaseAddress() {
-        return baseAddress;
-    }
+	public void setFee(Double fee) {
+		this.fee = fee;
+	}
 
-    public void setBaseAddress(String baseAddress) {
-        this.baseAddress = baseAddress;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 }
