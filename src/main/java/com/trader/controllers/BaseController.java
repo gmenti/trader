@@ -1,31 +1,40 @@
 package com.trader.controllers;
 
-import com.trader.entities.Test;
+import com.trader.entities.Currency;
 import com.trader.services.bittrex.BittrexService;
 import com.trader.services.bittrex.responses.Response;
-import com.trader.services.test.TestService;
+import com.trader.services.currency.CurrencyService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 class BaseController {
 	private final BittrexService bittrexService;
-    private final TestService testService;
+    private final CurrencyService currencyService;
 
-    BaseController(TestService testService, BittrexService bittrexService) {
-        this.testService = testService;
+    BaseController(CurrencyService currencyService, BittrexService bittrexService) {
+        this.currencyService = currencyService;
         this.bittrexService = bittrexService;
 	}
 
-    @RequestMapping("/test/create/{message}")
-    Test test(@PathVariable("message") String message) {
-        return testService.create(message);
-    }
+    @RequestMapping("/currency")
+    Iterable<Currency> listTest() {
+        Response<ArrayList<com.trader.services.bittrex.objects.Currency>> response = bittrexService.getCurrencies();
 
-    @RequestMapping("/test/all")
-    Iterable<Test> listTest() {
-        return testService.findAll();
+        response.getResult().forEach((com.trader.services.bittrex.objects.Currency currency) -> {
+            currencyService.create(
+                    currency.currencyLong,
+                    currency.currency,
+                    currency.minConfirmation,
+                    currency.txFee,
+                    currency.baseAddress
+            );
+        });
+
+        return currencyService.findAll();
     }
 
 	@RequestMapping("/bittrex")
