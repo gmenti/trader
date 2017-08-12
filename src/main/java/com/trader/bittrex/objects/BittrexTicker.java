@@ -1,16 +1,16 @@
-package com.trader.services.bittrex.objects;
+package com.trader.bittrex.objects;
 
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-public class Ticker extends BaseObject {
+public class BittrexTicker extends BittrexObject {
 	public Double bid;
 	public Double ask;
 	public Double last;
 
 	@JsonCreator
-	Ticker(Map<String, Object> map) {
+	BittrexTicker(Map<String, Object> map) {
 		super(map);
 	}
 }

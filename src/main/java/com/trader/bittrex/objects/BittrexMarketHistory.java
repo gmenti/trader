@@ -1,4 +1,4 @@
-package com.trader.services.bittrex.objects;
+package com.trader.bittrex.objects;
 
 import java.util.Date;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class MarketHistory extends BaseObject {
+public class BittrexMarketHistory extends BittrexObject {
 	public Integer id;
 	public Double quantity;
 	public Double price;
@@ -18,7 +18,7 @@ public class MarketHistory extends BaseObject {
 	public Date timeStamp;
 
 	@JsonCreator
-	MarketHistory(Map<String, Object> map) {
+	BittrexMarketHistory(Map<String, Object> map) {
 		super(map);
 	}
 }

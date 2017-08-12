@@ -1,4 +1,4 @@
-package com.trader.entities;
+package com.trader.currencies;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +29,18 @@ public class Currency {
 	@NotNull
 	private Double fee;
 	private String baseAddress;
+
+	protected Currency() {
+		//
+	}
+
+	public Currency(String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) {
+		this.setName(name);
+		this.setAbbreviation(abbreviation);
+		this.setConfirmations(confirmations);
+		this.setFee(fee);
+		this.setBaseAddress(baseAddress);
+	}
 
 	public String getAbbreviation() {
 		return abbreviation;

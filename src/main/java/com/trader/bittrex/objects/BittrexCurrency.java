@@ -1,4 +1,4 @@
-package com.trader.services.bittrex.objects;
+package com.trader.bittrex.objects;
 
 import java.util.Date;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Currency extends BaseObject {
+public class BittrexCurrency extends BittrexObject {
 	public String currency;
 	public String currencyLong;
 	public Integer minConfirmation;
@@ -19,7 +19,7 @@ public class Currency extends BaseObject {
 	public Date created;
 
 	@JsonCreator
-	Currency(Map<String, Object> map) {
+	BittrexCurrency(Map<String, Object> map) {
 		super(map);
 	}
 }

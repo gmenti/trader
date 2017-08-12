@@ -1,15 +1,16 @@
-package com.trader.controllers;
+package com.trader.http.controllers;
 
 import java.util.ArrayList;
 
+import com.trader.bittrex.objects.BittrexCurrency;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trader.entities.Currency;
-import com.trader.services.bittrex.BittrexService;
-import com.trader.services.bittrex.responses.Response;
-import com.trader.services.currency.CurrencyService;
+import com.trader.currencies.Currency;
+import com.trader.bittrex.BittrexService;
+import com.trader.bittrex.responses.Response;
+import com.trader.currencies.CurrencyService;
 
 @RestController
 class BaseController {
@@ -33,13 +34,6 @@ class BaseController {
 
 	@RequestMapping("/currency")
 	Iterable<Currency> listTest() {
-		Response<ArrayList<com.trader.services.bittrex.objects.Currency>> response = bittrexService.getCurrencies();
-
-		response.getResult().forEach((com.trader.services.bittrex.objects.Currency currency) -> {
-			currencyService.create(currency.currencyLong, currency.currency, currency.minConfirmation, currency.txFee,
-					currency.baseAddress);
-		});
-
 		return currencyService.findAll();
 	}
 }

@@ -1,4 +1,4 @@
-package com.trader.services.bittrex.objects;
+package com.trader.bittrex.objects;
 
 import java.util.Date;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class MarketSummary extends BaseObject {
+public class BittrexMarketSummary extends BittrexObject {
 	public String marketName;
 	public Double high;
 	public Double low;
@@ -25,7 +25,7 @@ public class MarketSummary extends BaseObject {
 	public Date created;
 
 	@JsonCreator
-	MarketSummary(Map<String, Object> map) {
+	BittrexMarketSummary(Map<String, Object> map) {
 		super(map);
 	}
 }

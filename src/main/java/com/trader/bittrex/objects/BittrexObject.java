@@ -1,4 +1,4 @@
-package com.trader.services.bittrex.objects;
+package com.trader.bittrex.objects;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -8,11 +8,11 @@ import java.util.Map;
 
 import org.springframework.util.StringUtils;
 
-abstract class BaseObject {
+abstract class BittrexObject {
 	private static final SimpleDateFormat dateFormmatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-	BaseObject(Map<String, Object> map) {
-		Class<BaseObject> self = (Class<BaseObject>) this.getClass();
+	BittrexObject(Map<String, Object> map) {
+		Class<BittrexObject> self = (Class<BittrexObject>) this.getClass();
 
 		map.forEach((String fieldName, Object value) -> {
 			String fieldNameToTitleCase = StringUtils.uncapitalize(fieldName);

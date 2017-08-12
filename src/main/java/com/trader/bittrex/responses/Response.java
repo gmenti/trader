@@ -1,4 +1,4 @@
-package com.trader.services.bittrex.responses;
+package com.trader.bittrex.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
