@@ -44,6 +44,12 @@ class FetchBittrexCurrencies implements Runnable {
                         bittrexCurrency.txFee,
                         bittrexCurrency.baseAddress
                 );
+            } else {
+                currency.setName(bittrexCurrency.currencyLong);
+                currency.setAbbreviation(bittrexCurrency.currency);
+                currency.setConfirmations(bittrexCurrency.minConfirmation);
+                currency.setFee(bittrexCurrency.txFee);
+                currency.setBaseAddress(bittrexCurrency.baseAddress);
             }
 
             this.currencyService.save(currency);
