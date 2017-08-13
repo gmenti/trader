@@ -34,7 +34,7 @@ class FetchBittrexCurrencies implements Runnable {
         CurrenciesResponse response = this.bittrexService.getCurrencies();
 
         for (BittrexCurrency bittrexCurrency : response.getResult()) {
-            Currency currency = mapByAbbreviation.get(bittrexCurrency.currencyLong);
+            Currency currency = mapByAbbreviation.get(bittrexCurrency.currency);
 
             if (currency == null) {
                 currency = new Currency(
