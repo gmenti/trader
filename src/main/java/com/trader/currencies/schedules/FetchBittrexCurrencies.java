@@ -38,11 +38,11 @@ class FetchBittrexCurrencies implements Runnable {
 
             if (currency == null) {
                 currency = new Currency(
-                        bittrexCurrency.currencyLong,
-                        bittrexCurrency.currency,
-                        bittrexCurrency.minConfirmation,
-                        bittrexCurrency.txFee,
-                        bittrexCurrency.baseAddress
+                    bittrexCurrency.currencyLong,
+                    bittrexCurrency.currency,
+                    bittrexCurrency.minConfirmation,
+                    bittrexCurrency.txFee,
+                    bittrexCurrency.baseAddress
                 );
             } else {
                 currency.setName(bittrexCurrency.currencyLong);
