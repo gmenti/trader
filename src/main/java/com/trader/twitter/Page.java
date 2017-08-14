@@ -2,6 +2,7 @@ package com.trader.twitter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,9 +29,14 @@ public class Page {
     }
 
     private ArrayList<Tweet> loadTweets(Document document) {
-        // TODO: Load tweets of document
+        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+        Element timeLine = document.getElementById("stream-items-id");
 
-        return new ArrayList<Tweet>();
+        timeLine.children().forEach((Element tweetElement) -> {
+            tweets.add(new Tweet(tweetElement));
+        });
+
+        return tweets;
     }
 
     public int getFollowers() {
