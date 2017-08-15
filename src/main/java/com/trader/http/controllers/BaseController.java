@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @RestController
 class BaseController {
@@ -39,8 +40,20 @@ class BaseController {
 		return currencyService.findAll();
 	}
 
-    @RequestMapping("/twitter/{page}")
-    Page twitter(@PathVariable("page") String page) throws IOException {
-        return twitterService.loadPage(page);
+    @RequestMapping("/twitter")
+    ArrayList<Page> twitter() {
+        Iterable<Currency> currencies = this.currencyService.findAll();
+        ArrayList<Page> pages = new ArrayList<>();
+
+        currencies.forEach(currency -> {
+            try {
+                pages.add(twitterService.loadPage(currency.getTwitter()));
+                System.out.println("Added page " + currency.getTwitter());
+            } catch (IOException e) {
+                System.out.println(currency.getName());
+            }
+        });
+
+        return pages;
     }
 }

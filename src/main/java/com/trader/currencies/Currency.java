@@ -1,18 +1,21 @@
 package com.trader.currencies;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
-
 @Entity
 public class Currency {
 	@Id
 	@GeneratedValue
 	private Long id;
+
+    @NotNull
+    private String twitter;
 
 	@NotNull
 	@Length(min = 3, max = 25)
@@ -34,17 +37,30 @@ public class Currency {
 		//
 	}
 
-	public Currency(String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) {
-		this.setName(name);
+    public Currency(String twitter, String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) {
+        this.setTwitter(twitter);
+        this.setName(name);
 		this.setAbbreviation(abbreviation);
 		this.setConfirmations(confirmations);
 		this.setFee(fee);
 		this.setBaseAddress(baseAddress);
 	}
 
-	public String getAbbreviation() {
-		return abbreviation;
-	}
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
 
 	public String getBaseAddress() {
 		return baseAddress;
@@ -56,10 +72,6 @@ public class Currency {
 
 	public Double getFee() {
 		return fee;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public void setAbbreviation(String abbreviation) {
@@ -81,4 +93,12 @@ public class Currency {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
 }

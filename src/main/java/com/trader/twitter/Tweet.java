@@ -44,21 +44,29 @@ class Tweet {
     }
 
     private int loadRetweetsAmount(Element element) {
-        return Integer.parseInt(element
-            .select(".ProfileTweet-action--retweet")
-            .select(".ProfileTweet-actionCountForPresentation")
-            .first()
-            .text()
-        );
+        try {
+            return Integer.parseInt(element
+                .select(".ProfileTweet-action--retweet")
+                .select(".ProfileTweet-actionCountForPresentation")
+                .first()
+                .text()
+            );
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     private int loadLikesAmount(Element element) {
-        return Integer.parseInt(element
-            .select(".ProfileTweet-action--favorite")
-            .select(".ProfileTweet-actionCountForPresentation")
-            .first()
-            .text()
-        );
+        try {
+            return Integer.parseInt(element
+                .select(".ProfileTweet-action--favorite")
+                .select(".ProfileTweet-actionCountForPresentation")
+                .first()
+                .text()
+            );
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public long getId() {

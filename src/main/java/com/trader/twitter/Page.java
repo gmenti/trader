@@ -7,8 +7,9 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.trader.twitter.TwitterService.BASE_URI;
+
 public class Page {
-    private final static String BASE_URI = "https://twitter.com/";
     private final int followers;
     private final ArrayList<Tweet> tweets;
 
@@ -32,9 +33,11 @@ public class Page {
         ArrayList<Tweet> tweets = new ArrayList<Tweet>();
         Element timeLine = document.getElementById("stream-items-id");
 
-        timeLine.children().forEach((Element tweetElement) -> {
-            tweets.add(new Tweet(tweetElement));
-        });
+        if (timeLine != null) {
+            timeLine.children().forEach((Element tweetElement) -> {
+                tweets.add(new Tweet(tweetElement));
+            });
+        }
 
         return tweets;
     }

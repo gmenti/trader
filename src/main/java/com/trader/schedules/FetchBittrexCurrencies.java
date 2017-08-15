@@ -1,10 +1,11 @@
-package com.trader.currencies.schedules;
+package com.trader.schedules;
 
 import com.trader.bittrex.BittrexService;
 import com.trader.bittrex.objects.BittrexCurrency;
 import com.trader.bittrex.responses.CurrenciesResponse;
 import com.trader.currencies.Currency;
 import com.trader.currencies.CurrencyService;
+import com.trader.scraper.coinmarketcap.CurrencyPage;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -36,23 +37,30 @@ class FetchBittrexCurrencies implements Runnable {
         for (BittrexCurrency bittrexCurrency : response.getResult()) {
             Currency currency = mapByAbbreviation.get(bittrexCurrency.currency);
 
-            if (currency == null) {
-                currency = new Currency(
-                    bittrexCurrency.currencyLong,
-                    bittrexCurrency.currency,
-                    bittrexCurrency.minConfirmation,
-                    bittrexCurrency.txFee,
-                    bittrexCurrency.baseAddress
-                );
-            } else {
-                currency.setName(bittrexCurrency.currencyLong);
-                currency.setAbbreviation(bittrexCurrency.currency);
-                currency.setConfirmations(bittrexCurrency.minConfirmation);
-                currency.setFee(bittrexCurrency.txFee);
-                currency.setBaseAddress(bittrexCurrency.baseAddress);
-            }
+            try {
+                if (currency == null) {
+                    CurrencyPage page = new CurrencyPage(bittrexCurrency.currencyLong);
 
-            this.currencyService.save(currency);
+                    currency = new Currency(
+                        page.getTwitter(),
+                        bittrexCurrency.currencyLong,
+                        bittrexCurrency.currency,
+                        bittrexCurrency.minConfirmation,
+                        bittrexCurrency.txFee,
+                        bittrexCurrency.baseAddress
+                    );
+                } else {
+                    currency.setName(bittrexCurrency.currencyLong);
+                    currency.setAbbreviation(bittrexCurrency.currency);
+                    currency.setConfirmations(bittrexCurrency.minConfirmation);
+                    currency.setFee(bittrexCurrency.txFee);
+                    currency.setBaseAddress(bittrexCurrency.baseAddress);
+                }
+
+                this.currencyService.save(currency);
+            } catch (Exception e) {
+                //
+            }
         }
     }
 }
