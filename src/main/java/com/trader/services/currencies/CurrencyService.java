@@ -2,20 +2,19 @@ package com.trader.services.currencies;
 
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class CurrencyService {
-    private final Repository repository;
+    private final CurrencyRepository repository;
 
-    CurrencyService(Repository repository) {
+    CurrencyService(CurrencyRepository repository) {
         this.repository = repository;
     }
 
-    public Currency create(String twitter, String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) throws IOException {
-        return this.save(new Currency(twitter, name, abbreviation, confirmations, fee, baseAddress));
+    public Currency create(String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) {
+        return this.save(new Currency(name, abbreviation, confirmations, fee, baseAddress));
     }
 
     public Currency save(Currency currency) {

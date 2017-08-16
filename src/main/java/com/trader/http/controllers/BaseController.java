@@ -1,6 +1,5 @@
 package com.trader.http.controllers;
 
-import com.trader.scraper.twitter.PageDocument;
 import com.trader.services.bittrex.BittrexService;
 import com.trader.services.bittrex.responses.Response;
 import com.trader.services.currencies.Currency;
@@ -8,9 +7,6 @@ import com.trader.services.currencies.CurrencyService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 @RestController
 class BaseController {
@@ -37,14 +33,14 @@ class BaseController {
         return currencyService.findAll();
     }
 
-    @RequestMapping("/twitter")
-    ArrayList<PageDocument> twitter() {
+    /*@RequestMapping("/twitter")
+    ArrayList<TwitterPage> twitter() {
         Iterable<Currency> currencies = this.currencyService.findAll();
-        ArrayList<PageDocument> pageDocuments = new ArrayList<>();
+        ArrayList<TwitterPage> pageDocuments = new ArrayList<>();
 
         currencies.forEach(currency -> {
             try {
-                pageDocuments.add(new PageDocument(currency.getTwitter()));
+                pageDocuments.add(new TwitterPage(currency.getTwitter()));
                 System.out.println("Added page " + currency.getTwitter());
             } catch (IOException e) {
                 System.out.println(currency.getName());
@@ -52,5 +48,6 @@ class BaseController {
         });
 
         return pageDocuments;
-    }
+
+    }*/
 }

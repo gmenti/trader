@@ -4,7 +4,7 @@ import org.jsoup.nodes.Element;
 
 import java.util.Date;
 
-class Tweet {
+public class TweetElement {
     private final long id;
     private final String author;
     private final Date createdAt;
@@ -12,7 +12,7 @@ class Tweet {
     private final int retweetsAmount;
     private final int favoritesAmount;
 
-    Tweet(Element element) {
+    TweetElement(Element element) {
         this.id = this.loadId(element);
         this.author = this.loadAuthor(element);
         this.createdAt = this.loadCreatedAt(element);

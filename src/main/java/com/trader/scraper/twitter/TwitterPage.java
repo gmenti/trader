@@ -8,17 +8,17 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PageDocument {
+public class TwitterPage {
     private final int followers;
-    private final ArrayList<Tweet> tweets;
+    private final ArrayList<TweetElement> timeline;
 
-    public PageDocument(String pageName) throws IOException {
+    public TwitterPage(String pageName) throws IOException {
         Document document = Jsoup
             .connect(Sites.TWITTER.getUrl() + pageName)
             .get();
 
         this.followers = this.loadFollowers(document);
-        this.tweets = this.loadTweets(document);
+        this.timeline = this.loadTimeline(document);
     }
 
     private int loadFollowers(Document document) {
@@ -28,24 +28,24 @@ public class PageDocument {
         );
     }
 
-    private ArrayList<Tweet> loadTweets(Document document) {
-        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    private ArrayList<TweetElement> loadTimeline(Document document) {
+        ArrayList<TweetElement> timeline = new ArrayList<>();
         Element timeLine = document.getElementById("stream-items-id");
 
         if (timeLine != null) {
             timeLine.children().forEach((Element tweetElement) -> {
-                tweets.add(new Tweet(tweetElement));
+                timeline.add(new TweetElement(tweetElement));
             });
         }
 
-        return tweets;
+        return timeline;
     }
 
     public int getFollowers() {
         return this.followers;
     }
 
-    public ArrayList<Tweet> getTweets() {
-        return this.tweets;
+    public ArrayList<TweetElement> getTimeline() {
+        return this.timeline;
     }
 }

@@ -6,10 +6,10 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class CurrencyDocument {
+public class CurrencyPage {
     private final String twitter;
 
-    public CurrencyDocument(String currencyName) throws IOException {
+    public CurrencyPage(String currencyName) throws IOException {
         Document document = Jsoup
             .connect(Sites.COINMARKETCAP.getUrl() + "currencies/" + currencyName)
             .get();
@@ -23,7 +23,8 @@ public class CurrencyDocument {
                 .getElementsByClass("twitter-timeline")
                 .first()
                 .attr("href")
-                .replace(Sites.TWITTER.getUrl(), "");
+                .replace(Sites.TWITTER.getUrl(), "")
+                .toLowerCase();
         } catch (NullPointerException error) {
             //
         }
