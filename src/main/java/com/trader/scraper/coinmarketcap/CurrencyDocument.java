@@ -18,11 +18,17 @@ public class CurrencyDocument {
     }
 
     private String loadTwitter(Document document) {
-        return document
-            .getElementsByClass("twitter-timeline")
-            .first()
-            .attr("href")
-            .replace(Sites.TWITTER.getUrl(), "");
+        try {
+            return document
+                .getElementsByClass("twitter-timeline")
+                .first()
+                .attr("href")
+                .replace(Sites.TWITTER.getUrl(), "");
+        } catch (NullPointerException error) {
+            //
+        }
+
+        return null;
     }
 
     public String getTwitter() {

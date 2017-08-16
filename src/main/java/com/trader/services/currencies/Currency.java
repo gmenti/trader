@@ -37,7 +37,7 @@ public class Currency {
         //
     }
 
-    public Currency(String twitter, String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) {
+    Currency(String twitter, String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) {
         this.setTwitter(twitter);
         this.setName(name);
         this.setAbbreviation(abbreviation);

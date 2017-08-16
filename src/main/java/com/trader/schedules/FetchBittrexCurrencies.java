@@ -3,14 +3,15 @@ package com.trader.schedules;
 import com.trader.scraper.coinmarketcap.CurrencyDocument;
 import com.trader.services.bittrex.BittrexService;
 import com.trader.services.bittrex.objects.BittrexCurrency;
-import com.trader.services.bittrex.responses.CurrenciesResponse;
 import com.trader.services.currencies.Currency;
 import com.trader.services.currencies.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,27 +26,35 @@ class FetchBittrexCurrencies implements Runnable {
         this.currencyService = currencyService;
     }
 
-    @Override
-    @Scheduled(fixedRate = 86400000) // 1 day
-    public void run() {
-        Iterable<Currency> currencies = this.currencyService.findAll();
-        Map<String, Currency> mapByAbbreviation = new HashMap<>();
+    private Map<BittrexCurrency, String> getBittrexCurrenciesWithTwitter() {
+        Map<BittrexCurrency, String> bittrexCurrenciesWithTwitter = new HashMap<>();
 
-        for (Currency currency : currencies) {
-            mapByAbbreviation.put(currency.getAbbreviation(), currency);
+        for (BittrexCurrency bittrexCurrency : this.bittrexService.getCurrencies().getResult()) {
+            try {
+                String twitter = new CurrencyDocument(bittrexCurrency.currencyLong).getTwitter();
+
+                if (twitter != null) {
+                    bittrexCurrenciesWithTwitter.put(bittrexCurrency, twitter);
+                }
+            } catch (IOException e) {
+                //
+            }
         }
 
-        CurrenciesResponse response = this.bittrexService.getCurrencies();
+        return bittrexCurrenciesWithTwitter;
+    }
 
-        for (BittrexCurrency bittrexCurrency : response.getResult()) {
+    @Transactional
+    protected void fetch(Map<BittrexCurrency, String> bittrexCurrenciesWithTwitter) {
+        Map<String, Currency> mapByAbbreviation = this.currencyService.getCurrenciesMappedByAbbreviation();
+
+        bittrexCurrenciesWithTwitter.forEach((BittrexCurrency bittrexCurrency, String twitter) -> {
             Currency currency = mapByAbbreviation.get(bittrexCurrency.currency);
 
             try {
                 if (currency == null) {
-                    CurrencyDocument page = new CurrencyDocument(bittrexCurrency.currencyLong);
-
-                    currency = new Currency(
-                        page.getTwitter(),
+                    this.currencyService.create(
+                        twitter,
                         bittrexCurrency.currencyLong,
                         bittrexCurrency.currency,
                         bittrexCurrency.minConfirmation,
@@ -53,19 +62,30 @@ class FetchBittrexCurrencies implements Runnable {
                         bittrexCurrency.baseAddress
                     );
                 } else {
+                    currency.setTwitter(twitter);
                     currency.setName(bittrexCurrency.currencyLong);
                     currency.setAbbreviation(bittrexCurrency.currency);
                     currency.setConfirmations(bittrexCurrency.minConfirmation);
                     currency.setFee(bittrexCurrency.txFee);
                     currency.setBaseAddress(bittrexCurrency.baseAddress);
+
+                    this.currencyService.save(currency);
                 }
-
-                this.currencyService.save(currency);
-
-                logger.info("Fetched " + currency.getName());
             } catch (Exception e) {
                 //
             }
-        }
+        });
+    }
+
+    @Override
+    @Scheduled(fixedRate = 86400000) // 1 day
+    public void run() {
+        logger.info("Getting bittrex currencies with twitter");
+        Map<BittrexCurrency, String> bittrexCurrenciesWithTwitter = this.getBittrexCurrenciesWithTwitter();
+
+        logger.info("Fetching currencies");
+        this.fetch(bittrexCurrenciesWithTwitter);
+
+        logger.info("Finished schedule");
     }
 }
