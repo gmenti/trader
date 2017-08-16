@@ -6,6 +6,8 @@ import com.trader.services.bittrex.objects.BittrexCurrency;
 import com.trader.services.bittrex.responses.CurrenciesResponse;
 import com.trader.services.currencies.Currency;
 import com.trader.services.currencies.CurrencyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import java.util.Map;
 
 @Component
 class FetchBittrexCurrencies implements Runnable {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final BittrexService bittrexService;
     private final CurrencyService currencyService;
 
@@ -58,6 +61,8 @@ class FetchBittrexCurrencies implements Runnable {
                 }
 
                 this.currencyService.save(currency);
+
+                logger.info("Fetched " + currency.getName());
             } catch (Exception e) {
                 //
             }
