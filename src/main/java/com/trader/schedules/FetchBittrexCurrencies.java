@@ -1,11 +1,11 @@
 package com.trader.schedules;
 
-import com.trader.bittrex.BittrexService;
-import com.trader.bittrex.objects.BittrexCurrency;
-import com.trader.bittrex.responses.CurrenciesResponse;
-import com.trader.currencies.Currency;
-import com.trader.currencies.CurrencyService;
 import com.trader.scraper.coinmarketcap.CurrencyDocument;
+import com.trader.services.bittrex.BittrexService;
+import com.trader.services.bittrex.objects.BittrexCurrency;
+import com.trader.services.bittrex.responses.CurrenciesResponse;
+import com.trader.services.currencies.Currency;
+import com.trader.services.currencies.CurrencyService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

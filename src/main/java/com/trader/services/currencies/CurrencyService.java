@@ -1,8 +1,6 @@
-package com.trader.currencies;
+package com.trader.services.currencies;
 
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 public class CurrencyService {

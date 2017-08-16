@@ -1,10 +1,10 @@
 package com.trader.http.controllers;
 
-import com.trader.bittrex.BittrexService;
-import com.trader.bittrex.responses.Response;
-import com.trader.currencies.Currency;
-import com.trader.currencies.CurrencyService;
 import com.trader.scraper.twitter.PageDocument;
+import com.trader.services.bittrex.BittrexService;
+import com.trader.services.bittrex.responses.Response;
+import com.trader.services.currencies.Currency;
+import com.trader.services.currencies.CurrencyService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

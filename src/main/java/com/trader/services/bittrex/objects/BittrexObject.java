@@ -1,12 +1,12 @@
-package com.trader.bittrex.objects;
+package com.trader.services.bittrex.objects;
+
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
-import org.springframework.util.StringUtils;
 
 abstract class BittrexObject {
 	private static final SimpleDateFormat dateFormmatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

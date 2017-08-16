@@ -1,8 +1,8 @@
-package com.trader.bittrex.objects;
-
-import java.util.Map;
+package com.trader.services.bittrex.objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import java.util.Map;
 
 public class BittrexTicker extends BittrexObject {
 	public Double bid;

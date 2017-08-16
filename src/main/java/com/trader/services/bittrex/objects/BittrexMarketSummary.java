@@ -1,10 +1,10 @@
-package com.trader.bittrex.objects;
-
-import java.util.Date;
-import java.util.Map;
+package com.trader.services.bittrex.objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+import java.util.Map;
 
 public class BittrexMarketSummary extends BittrexObject {
 	public String marketName;

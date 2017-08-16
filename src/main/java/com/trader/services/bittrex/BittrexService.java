@@ -1,13 +1,8 @@
-package com.trader.bittrex;
+package com.trader.services.bittrex;
 
+import com.trader.services.bittrex.responses.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import com.trader.bittrex.responses.CurrenciesResponse;
-import com.trader.bittrex.responses.MarketHistoryResponse;
-import com.trader.bittrex.responses.MarketSummariesResponse;
-import com.trader.bittrex.responses.MarketsResponse;
-import com.trader.bittrex.responses.TickerResponse;
 
 @Service
 public class BittrexService {
