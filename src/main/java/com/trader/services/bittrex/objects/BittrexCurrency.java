@@ -7,19 +7,19 @@ import java.util.Date;
 import java.util.Map;
 
 public class BittrexCurrency extends BittrexObject {
-	public String currency;
-	public String currencyLong;
-	public Integer minConfirmation;
-	public Double txFee;
-	public Boolean isActive;
-	public String coinType;
-	public String baseAddress;
+    public String currency;
+    public String currencyLong;
+    public Integer minConfirmation;
+    public Double txFee;
+    public Boolean isActive;
+    public String coinType;
+    public String baseAddress;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING)
-	public Date created;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    public Date created;
 
-	@JsonCreator
-	BittrexCurrency(Map<String, Object> map) {
-		super(map);
-	}
+    @JsonCreator
+    BittrexCurrency(Map<String, Object> map) {
+        super(map);
+    }
 }

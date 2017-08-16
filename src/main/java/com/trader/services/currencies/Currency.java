@@ -10,41 +10,41 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Currency {
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @NotNull
     private String twitter;
 
-	@NotNull
-	@Length(min = 3, max = 25)
-	private String name;
+    @NotNull
+    @Length(min = 3, max = 25)
+    private String name;
 
-	@NotNull
-	@Length(min = 1, max = 10)
-	private String abbreviation;
+    @NotNull
+    @Length(min = 1, max = 10)
+    private String abbreviation;
 
-	@NotNull
-	@DecimalMin("0")
-	private Integer confirmations;
+    @NotNull
+    @DecimalMin("0")
+    private Integer confirmations;
 
-	@NotNull
-	private Double fee;
-	private String baseAddress;
+    @NotNull
+    private Double fee;
+    private String baseAddress;
 
-	protected Currency() {
-		//
-	}
+    protected Currency() {
+        //
+    }
 
     public Currency(String twitter, String name, String abbreviation, Integer confirmations, Double fee, String baseAddress) {
         this.setTwitter(twitter);
         this.setName(name);
-		this.setAbbreviation(abbreviation);
-		this.setConfirmations(confirmations);
-		this.setFee(fee);
-		this.setBaseAddress(baseAddress);
-	}
+        this.setAbbreviation(abbreviation);
+        this.setConfirmations(confirmations);
+        this.setFee(fee);
+        this.setBaseAddress(baseAddress);
+    }
 
     public Long getId() {
         return id;
@@ -62,43 +62,43 @@ public class Currency {
         this.twitter = twitter;
     }
 
-	public String getBaseAddress() {
-		return baseAddress;
-	}
+    public String getBaseAddress() {
+        return baseAddress;
+    }
 
-	public Integer getConfirmations() {
-		return confirmations;
-	}
+    public void setBaseAddress(String baseAddress) {
+        this.baseAddress = baseAddress;
+    }
 
-	public Double getFee() {
-		return fee;
-	}
+    public Integer getConfirmations() {
+        return confirmations;
+    }
 
-	public void setAbbreviation(String abbreviation) {
-		this.abbreviation = abbreviation;
-	}
+    public void setConfirmations(Integer confirmations) {
+        this.confirmations = confirmations;
+    }
 
-	public void setBaseAddress(String baseAddress) {
-		this.baseAddress = baseAddress;
-	}
+    public Double getFee() {
+        return fee;
+    }
 
-	public void setConfirmations(Integer confirmations) {
-		this.confirmations = confirmations;
-	}
-
-	public void setFee(Double fee) {
-		this.fee = fee;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setFee(Double fee) {
+        this.fee = fee;
+    }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getAbbreviation() {
         return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 }

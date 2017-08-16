@@ -4,31 +4,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Response<Result> {
-	private Boolean success;
-	private String message;
-	private Result result;
+    private Boolean success;
+    private String message;
+    private Result result;
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public Result getResult() {
-		return result;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public Boolean getSuccess() {
-		return success;
-	}
+    public Result getResult() {
+        return result;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setResult(Result result) {
+        this.result = result;
+    }
 
-	public void setResult(Result result) {
-		this.result = result;
-	}
+    public Boolean getSuccess() {
+        return success;
+    }
 
-	public void setSuccess(Boolean success) {
-		this.success = success;
-	}
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
 }

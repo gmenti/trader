@@ -14,28 +14,28 @@ import java.util.ArrayList;
 
 @RestController
 class BaseController {
-	private final BittrexService bittrexService;
-	private final CurrencyService currencyService;
+    private final BittrexService bittrexService;
+    private final CurrencyService currencyService;
 
     BaseController(CurrencyService currencyService, BittrexService bittrexService) {
         this.currencyService = currencyService;
-		this.bittrexService = bittrexService;
+        this.bittrexService = bittrexService;
     }
 
-	@RequestMapping("/bittrex/{market}")
-	Response getTicker(@PathVariable("market") String market) {
-		return bittrexService.getMarketHistory(market);
-	}
+    @RequestMapping("/bittrex/{market}")
+    Response getTicker(@PathVariable("market") String market) {
+        return bittrexService.getMarketHistory(market);
+    }
 
-	@RequestMapping("/bittrex")
-	Response home() {
-		return bittrexService.getCurrencies();
-	}
+    @RequestMapping("/bittrex")
+    Response home() {
+        return bittrexService.getCurrencies();
+    }
 
-	@RequestMapping("/currency")
-	Iterable<Currency> listTest() {
-		return currencyService.findAll();
-	}
+    @RequestMapping("/currency")
+    Iterable<Currency> listTest() {
+        return currencyService.findAll();
+    }
 
     @RequestMapping("/twitter")
     ArrayList<PageDocument> twitter() {
