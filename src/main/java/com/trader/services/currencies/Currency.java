@@ -99,6 +99,6 @@ public class Currency {
     }
 
     public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
+        this.abbreviation = abbreviation.toUpperCase();
     }
 }
