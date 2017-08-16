@@ -1,18 +1,17 @@
 package com.trader.scraper.coinmarketcap;
 
-import com.trader.twitter.TwitterService;
+import com.trader.scraper.Sites;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class CurrencyPage {
-    private final static String BASE_URI = "https://coinmarketcap.com/currencies/";
+public class CurrencyDocument {
     private final String twitter;
 
-    public CurrencyPage(String currencyName) throws IOException {
+    public CurrencyDocument(String currencyName) throws IOException {
         Document document = Jsoup
-            .connect(BASE_URI + currencyName)
+            .connect(Sites.COINMARKETCAP.getUrl() + "currencies/" + currencyName)
             .get();
 
         this.twitter = this.loadTwitter(document);
@@ -23,7 +22,7 @@ public class CurrencyPage {
             .getElementsByClass("twitter-timeline")
             .first()
             .attr("href")
-            .replace(TwitterService.BASE_URI, "");
+            .replace(Sites.TWITTER.getUrl(), "");
     }
 
     public String getTwitter() {

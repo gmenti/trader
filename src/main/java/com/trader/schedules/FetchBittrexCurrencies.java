@@ -5,7 +5,7 @@ import com.trader.bittrex.objects.BittrexCurrency;
 import com.trader.bittrex.responses.CurrenciesResponse;
 import com.trader.currencies.Currency;
 import com.trader.currencies.CurrencyService;
-import com.trader.scraper.coinmarketcap.CurrencyPage;
+import com.trader.scraper.coinmarketcap.CurrencyDocument;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +39,7 @@ class FetchBittrexCurrencies implements Runnable {
 
             try {
                 if (currency == null) {
-                    CurrencyPage page = new CurrencyPage(bittrexCurrency.currencyLong);
+                    CurrencyDocument page = new CurrencyDocument(bittrexCurrency.currencyLong);
 
                     currency = new Currency(
                         page.getTwitter(),

@@ -4,8 +4,7 @@ import com.trader.bittrex.BittrexService;
 import com.trader.bittrex.responses.Response;
 import com.trader.currencies.Currency;
 import com.trader.currencies.CurrencyService;
-import com.trader.twitter.Page;
-import com.trader.twitter.TwitterService;
+import com.trader.scraper.twitter.PageDocument;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,12 +16,10 @@ import java.util.ArrayList;
 class BaseController {
 	private final BittrexService bittrexService;
 	private final CurrencyService currencyService;
-    private final TwitterService twitterService;
 
-    BaseController(CurrencyService currencyService, BittrexService bittrexService, TwitterService twitterService) {
+    BaseController(CurrencyService currencyService, BittrexService bittrexService) {
         this.currencyService = currencyService;
 		this.bittrexService = bittrexService;
-        this.twitterService = twitterService;
     }
 
 	@RequestMapping("/bittrex/{market}")
@@ -41,19 +38,19 @@ class BaseController {
 	}
 
     @RequestMapping("/twitter")
-    ArrayList<Page> twitter() {
+    ArrayList<PageDocument> twitter() {
         Iterable<Currency> currencies = this.currencyService.findAll();
-        ArrayList<Page> pages = new ArrayList<>();
+        ArrayList<PageDocument> pageDocuments = new ArrayList<>();
 
         currencies.forEach(currency -> {
             try {
-                pages.add(twitterService.loadPage(currency.getTwitter()));
+                pageDocuments.add(new PageDocument(currency.getTwitter()));
                 System.out.println("Added page " + currency.getTwitter());
             } catch (IOException e) {
                 System.out.println(currency.getName());
             }
         });
 
-        return pages;
+        return pageDocuments;
     }
 }

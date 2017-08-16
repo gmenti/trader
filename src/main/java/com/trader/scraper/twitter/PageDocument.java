@@ -1,5 +1,6 @@
-package com.trader.twitter;
+package com.trader.scraper.twitter;
 
+import com.trader.scraper.Sites;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -7,15 +8,13 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.trader.twitter.TwitterService.BASE_URI;
-
-public class Page {
+public class PageDocument {
     private final int followers;
     private final ArrayList<Tweet> tweets;
 
-    public Page(String pageName) throws IOException {
+    public PageDocument(String pageName) throws IOException {
         Document document = Jsoup
-            .connect(BASE_URI + pageName)
+            .connect(Sites.TWITTER.getUrl() + pageName)
             .get();
 
         this.followers = this.loadFollowers(document);
