@@ -1,4 +1,4 @@
-package com.trader.scraper.coinmarketcap;
+package com.trader.scraper.coinmarketcap.page;
 
 import com.trader.scraper.Sites;
 import org.jsoup.Jsoup;
@@ -6,10 +6,10 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class CurrencyPage {
+public class CoinMarketCapCurrency {
     private final String twitter;
 
-    public CurrencyPage(String currencyName) throws IOException {
+    public CoinMarketCapCurrency(String currencyName) throws IOException {
         Document document = Jsoup
             .connect(Sites.COINMARKETCAP.getUrl() + "currencies/" + currencyName)
             .get();

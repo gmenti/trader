@@ -9,6 +9,7 @@ spring:
 
 logging:
   file: .log
+
   level:
     org:
       springframework:

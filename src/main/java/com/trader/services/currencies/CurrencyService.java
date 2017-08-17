@@ -1,5 +1,6 @@
 package com.trader.services.currencies;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -33,5 +34,16 @@ public class CurrencyService {
         }
 
         return mapByAbbreviation;
+    }
+
+    @Async
+    public void async() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            //
+        }
+
+        System.out.println("kkkk");
     }
 }

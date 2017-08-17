@@ -1,6 +1,6 @@
 package com.trader.schedule;
 
-import com.trader.scraper.coinmarketcap.CurrencyPage;
+import com.trader.scraper.coinmarketcap.page.CoinMarketCapCurrency;
 import com.trader.scraper.twitter.TweetElement;
 import com.trader.scraper.twitter.TwitterPage;
 import com.trader.services.bittrex.BittrexService;
@@ -70,7 +70,7 @@ class Fetcher {
         logger.info("Fetched currencies: " + (System.currentTimeMillis() - startedAt) + "ms");
     }
 
-    @Scheduled(fixedRate = 500) // 500ms
+    // @Scheduled(fixedRate = 500) // 500ms
     protected void fetchTwitters() {
         long startedAt = System.currentTimeMillis();
 
@@ -79,7 +79,7 @@ class Fetcher {
 
         for (Currency currency : currencies) {
             try {
-                String twitterSlug = new CurrencyPage(currency.getName()).getTwitter();
+                String twitterSlug = new CoinMarketCapCurrency(currency.getName()).getTwitter();
 
                 if (twitterSlug == null) {
                     continue;
