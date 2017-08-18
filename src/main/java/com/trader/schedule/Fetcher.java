@@ -1,16 +1,16 @@
 package com.trader.schedule;
 
-import com.trader.scraper.coinmarketcap.page.CoinMarketCapCurrency;
+import com.trader.scraper.coinmarketcap.CoinMarketCapCurrency;
 import com.trader.scraper.twitter.TweetElement;
 import com.trader.scraper.twitter.TwitterPage;
-import com.trader.services.bittrex.BittrexService;
-import com.trader.services.bittrex.objects.BittrexCurrency;
-import com.trader.services.currencies.Currency;
-import com.trader.services.currencies.CurrencyService;
-import com.trader.services.tweets.Tweet;
-import com.trader.services.tweets.TweetService;
-import com.trader.services.twitter.Twitter;
-import com.trader.services.twitter.TwitterService;
+import com.trader.service.bittrex.BittrexService;
+import com.trader.service.bittrex.objects.BittrexCurrency;
+import com.trader.service.currencies.Currency;
+import com.trader.service.currencies.CurrencyService;
+import com.trader.service.tweets.Tweet;
+import com.trader.service.tweets.TweetService;
+import com.trader.service.twitter.Twitter;
+import com.trader.service.twitter.TwitterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;

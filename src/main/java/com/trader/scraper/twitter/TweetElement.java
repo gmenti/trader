@@ -12,7 +12,7 @@ public class TweetElement {
     private final int retweetsAmount;
     private final int favoritesAmount;
 
-    TweetElement(Element element) {
+    protected TweetElement(Element element) {
         this.id = this.loadId(element);
         this.author = this.loadAuthor(element);
         this.createdAt = this.loadCreatedAt(element);

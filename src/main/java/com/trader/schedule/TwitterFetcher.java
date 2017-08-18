@@ -1,9 +1,9 @@
 package com.trader.schedule;
 
+import com.trader.scraper.coinmarketcap.CoinMarketCapCurrency;
 import com.trader.scraper.coinmarketcap.CoinMarketCapScraper;
-import com.trader.scraper.coinmarketcap.page.CoinMarketCapCurrency;
-import com.trader.services.currencies.Currency;
-import com.trader.services.currencies.CurrencyService;
+import com.trader.service.currencies.Currency;
+import com.trader.service.currencies.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
