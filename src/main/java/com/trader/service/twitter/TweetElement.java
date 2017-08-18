@@ -1,4 +1,4 @@
-package com.trader.scraper.twitter;
+package com.trader.service.twitter;
 
 import org.jsoup.nodes.Element;
 

@@ -1,16 +1,17 @@
-package com.trader.scraper.coinmarketcap;
+package com.trader.service.coinmarketcap;
 
+import com.trader.service.twitter.TwitterScrapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class CoinMarketCapCurrency {
+public class CoinMarketCapCurrencyPage {
     private final String twitter;
 
-    protected CoinMarketCapCurrency(String currencyName) throws IOException {
+    protected CoinMarketCapCurrencyPage(String currencyName) throws IOException {
         Document document = Jsoup
-            .connect(CoinMarketCapScraper.URL + "currencies/" + currencyName)
+            .connect(CoinMarketCapScrapper.URL + "currencies/" + currencyName)
             .get();
 
         this.twitter = this.loadTwitter(document);
@@ -22,7 +23,7 @@ public class CoinMarketCapCurrency {
                 .getElementsByClass("twitter-timeline")
                 .first()
                 .attr("href")
-                .replace(CoinMarketCapScraper.URL, "")
+                .replace(TwitterScrapper.URL, "")
                 .toLowerCase();
         } catch (NullPointerException error) {
             //
