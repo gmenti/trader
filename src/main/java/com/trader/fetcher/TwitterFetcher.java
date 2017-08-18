@@ -44,6 +44,8 @@ class TwitterFetcher implements Runnable {
             return;
         }
 
+        logger.info("Get currency");
+
         this.twitterScrapper
             .getProfilePage(twitterSlug)
             .thenAccept(this::processTwitterProfilePage);
