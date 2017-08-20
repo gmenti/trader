@@ -1,11 +1,11 @@
 package com.trader.fetcher;
 
-import com.trader.service.coinmarketcap.CoinMarketCapCurrencyPage;
-import com.trader.service.coinmarketcap.CoinMarketCapScrapper;
-import com.trader.service.currencies.Currency;
-import com.trader.service.currencies.CurrencyService;
-import com.trader.service.twitter.TwitterProfilePage;
-import com.trader.service.twitter.TwitterScrapper;
+import com.trader.scrappe.coinmarketcap.CoinMarketCapCurrencyPage;
+import com.trader.scrappe.coinmarketcap.CoinMarketCapScrapper;
+import com.trader.scrappe.twitter.TwitterProfilePage;
+import com.trader.scrappe.twitter.TwitterScrapper;
+import com.trader.service.currency.Currency;
+import com.trader.service.currency.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;

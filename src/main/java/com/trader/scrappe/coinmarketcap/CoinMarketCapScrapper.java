@@ -1,4 +1,4 @@
-package com.trader.service.coinmarketcap;
+package com.trader.scrappe.coinmarketcap;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

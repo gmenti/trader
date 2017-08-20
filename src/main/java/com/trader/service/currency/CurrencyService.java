@@ -1,4 +1,4 @@
-package com.trader.service.currencies;
+package com.trader.service.currency;
 
 import org.springframework.stereotype.Service;
 

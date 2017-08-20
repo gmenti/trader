@@ -1,4 +1,4 @@
-package com.trader.service.bittrex.objects;
+package com.trader.integration.bittrex.objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

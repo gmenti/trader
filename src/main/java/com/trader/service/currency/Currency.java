@@ -1,4 +1,4 @@
-package com.trader.service.currencies;
+package com.trader.service.currency;
 
 import com.trader.service.twitter.Twitter;
 import org.hibernate.validator.constraints.Length;

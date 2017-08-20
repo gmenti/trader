@@ -1,10 +1,10 @@
 package com.trader.fetcher;
 
-import com.trader.service.bittrex.BittrexService;
-import com.trader.service.bittrex.objects.BittrexCurrency;
-import com.trader.service.bittrex.responses.CurrenciesResponse;
-import com.trader.service.currencies.Currency;
-import com.trader.service.currencies.CurrencyService;
+import com.trader.integration.bittrex.BittrexIntegration;
+import com.trader.integration.bittrex.objects.BittrexCurrency;
+import com.trader.integration.bittrex.responses.CurrenciesResponse;
+import com.trader.service.currency.Currency;
+import com.trader.service.currency.CurrencyService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import java.util.Map;
 
 public class CurrencyFetcher implements Runnable {
     private final CurrencyService currencyService;
-    private final BittrexService bittrexService;
+    private final BittrexIntegration bittrexIntegration;
 
-    public CurrencyFetcher(CurrencyService currencyService, BittrexService bittrexService) {
+    public CurrencyFetcher(CurrencyService currencyService, BittrexIntegration bittrexIntegration) {
         this.currencyService = currencyService;
-        this.bittrexService = bittrexService;
+        this.bittrexIntegration = bittrexIntegration;
     }
 
     @Transactional
@@ -50,12 +50,12 @@ public class CurrencyFetcher implements Runnable {
 
     @Override
     public void run() {
-        long startedAt = System.currentTimeMillis();
-
-        CurrenciesResponse response = this.bittrexService.getCurrencies();
+        CurrenciesResponse response = this.bittrexIntegration.getCurrencies();
 
         if (response.getSuccess()) {
             this.fetchCurrencies(response.getResult());
+        } else {
+            this.run();
         }
     }
 }

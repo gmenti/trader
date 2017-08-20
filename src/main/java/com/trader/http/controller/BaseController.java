@@ -1,31 +1,31 @@
 package com.trader.http.controller;
 
-import com.trader.service.bittrex.BittrexService;
-import com.trader.service.bittrex.responses.Response;
-import com.trader.service.currencies.Currency;
-import com.trader.service.currencies.CurrencyService;
+import com.trader.integration.bittrex.BittrexIntegration;
+import com.trader.integration.bittrex.responses.Response;
+import com.trader.service.currency.Currency;
+import com.trader.service.currency.CurrencyService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 class BaseController {
-    private final BittrexService bittrexService;
+    private final BittrexIntegration bittrexIntegration;
     private final CurrencyService currencyService;
 
-    BaseController(CurrencyService currencyService, BittrexService bittrexService) {
+    BaseController(CurrencyService currencyService, BittrexIntegration bittrexIntegration) {
         this.currencyService = currencyService;
-        this.bittrexService = bittrexService;
+        this.bittrexIntegration = bittrexIntegration;
     }
 
     @RequestMapping("/bittrex/{market}")
     Response getTicker(@PathVariable("market") String market) {
-        return bittrexService.getMarketHistory(market);
+        return bittrexIntegration.getMarketHistory(market);
     }
 
     @RequestMapping("/bittrex")
     Response home() {
-        return bittrexService.getCurrencies();
+        return bittrexIntegration.getCurrencies();
     }
 
     @RequestMapping("/currency")

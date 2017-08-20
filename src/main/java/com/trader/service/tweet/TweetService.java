@@ -1,4 +1,4 @@
-package com.trader.service.tweets;
+package com.trader.service.tweet;
 
 import com.trader.service.twitter.Twitter;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.trader.service.twitter;
 
-import com.trader.service.tweets.Tweet;
+import com.trader.service.tweet.Tweet;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

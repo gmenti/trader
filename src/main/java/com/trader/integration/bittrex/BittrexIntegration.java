@@ -1,11 +1,11 @@
-package com.trader.service.bittrex;
+package com.trader.integration.bittrex;
 
-import com.trader.service.bittrex.responses.*;
+import com.trader.integration.bittrex.responses.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class BittrexService {
+public class BittrexIntegration {
     private final static String BASE_URI = "https://bittrex.com/api/";
     private final static String V1_URI = BASE_URI + "v1.1/";
     private final static String V1_PUBLIC_URI = V1_URI + "public/";
@@ -18,7 +18,7 @@ public class BittrexService {
 
     private final RestTemplate restTemplate;
 
-    public BittrexService() {
+    public BittrexIntegration() {
         this.restTemplate = new RestTemplate();
     }
 

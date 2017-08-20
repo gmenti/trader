@@ -1,6 +1,6 @@
-package com.trader.service.bittrex.responses;
+package com.trader.integration.bittrex.responses;
 
-import com.trader.service.bittrex.objects.BittrexMarket;
+import com.trader.integration.bittrex.objects.BittrexMarket;
 
 import java.util.ArrayList;
 

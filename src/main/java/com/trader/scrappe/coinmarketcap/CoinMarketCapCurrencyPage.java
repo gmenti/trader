@@ -1,6 +1,6 @@
-package com.trader.service.coinmarketcap;
+package com.trader.scrappe.coinmarketcap;
 
-import com.trader.service.twitter.TwitterScrapper;
+import com.trader.scrappe.twitter.TwitterScrapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
