@@ -1,6 +1,7 @@
 package com.trader.service.tweet;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.trader.service.twitter.Twitter;
 import org.hibernate.validator.constraints.Length;
 
@@ -10,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"id", "uuid"}),
+    @UniqueConstraint(columnNames = {"twitter_id", "UUID"}),
 })
 public class Tweet {
     @Id
@@ -18,10 +19,15 @@ public class Tweet {
     private long id;
 
     @NotNull
-    private long UUID;
+    @Column(name = "twitter_id", insertable = false, updatable = false)
+    private long twitterId;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Twitter twitter;
+
+    @NotNull
+    private long UUID;
 
     @NotNull
     @Length(min = 0, max = 1000)
@@ -86,10 +92,6 @@ public class Tweet {
         return createdAt;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public long getUUID() {
         return UUID;
     }
@@ -104,5 +106,9 @@ public class Tweet {
 
     public void setTwitter(Twitter twitter) {
         this.twitter = twitter;
+    }
+
+    public long getTwitterId() {
+        return twitterId;
     }
 }

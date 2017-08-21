@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -102,6 +103,10 @@ class TwitterFetcher implements Runnable {
     public void run() {
         long startedAt = System.currentTimeMillis();
 
+        Map<Long, Map<Long, Tweet>> tweetsMappedByUUIDMappedByTwitterId = this.tweetService
+            .findAllMappedByUUIDMappedByTwitterId();
+
+        Map<String, Currency> currenciesMappedByAbbreviation = this.currencyService.findAllMappedByAbbreviation();
         Map<String, Twitter> twittersMappedBySlug = this.twitterService.findAllMappedBySlug();
 
         int countOfTwittersToProcess = this.currenciesAbbreviationsMappedByTwitter.size();
@@ -122,17 +127,29 @@ class TwitterFetcher implements Runnable {
 
                             twittersMappedBySlug.put(twitter.getSlug(), twitter);
                         } else {
-                            twitter.setFollowers(twitter.getFollowers());
+                            twitter.setFollowers(twitterProfilePage.getFollowers());
                             this.twitterService.save(twitter);
                         }
 
-                        Map<Long, Tweet> tweetsMappedById = twitter.tweetsMappedByUUID();
+                        for (String abbreviation : abbreviations) {
+                            Currency currency = currenciesMappedByAbbreviation.get(abbreviation);
+
+                            if (currency.getTwitter() != twitter) {
+                                currency.setTwitter(twitter);
+                                this.currencyService.save(currency);
+                            }
+                        }
+
+                        Map<Long, Tweet> tweetsMappedByUUID = tweetsMappedByUUIDMappedByTwitterId.getOrDefault(
+                            twitter.getId(),
+                            new HashMap<>()
+                        );
 
                         for (TweetElement tweetElement : twitterProfilePage.getTimeline()) {
-                            Tweet tweet = tweetsMappedById.get(tweetElement.getId());
+                            Tweet tweet = tweetsMappedByUUID.get(tweetElement.getId());
 
                             if (tweet == null) {
-                                this.tweetService.create(
+                                tweet = this.tweetService.create(
                                     tweetElement.getId(),
                                     twitter,
                                     tweetElement.getMessage(),
@@ -140,6 +157,8 @@ class TwitterFetcher implements Runnable {
                                     tweetElement.getFavoritesAmount(),
                                     tweetElement.getCreatedAt()
                                 );
+
+                                tweetsMappedByUUID.put(tweet.getUUID(), tweet);
                             } else {
                                 tweet.setMessage(tweetElement.getMessage());
                                 tweet.setRetweets(tweetElement.getRetweetsAmount());
@@ -148,10 +167,15 @@ class TwitterFetcher implements Runnable {
                                 this.tweetService.save(tweet);
                             }
                         }
+
+                        tweetsMappedByUUIDMappedByTwitterId.put(twitter.getId(), tweetsMappedByUUID);
                     }
 
                     countOfTwittersProcessed.incrementAndGet();
-                });
+                }).exceptionally(e -> {
+                logger.error(e.getMessage());
+                return null;
+            });
         });
 
         while (countOfTwittersToProcess != countOfTwittersProcessed.get()) {

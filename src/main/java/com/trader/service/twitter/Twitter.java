@@ -1,21 +1,26 @@
 package com.trader.service.twitter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.trader.service.currency.Currency;
 import com.trader.service.tweet.Tweet;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 @Entity
 public class Twitter {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
-    @OneToMany
-    private List<Tweet> tweets;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "twitter")
+    private Set<Currency> currencies;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "twitter")
+    private Set<Tweet> tweets;
 
     @NotNull
     @Column(unique = true)
@@ -33,12 +38,8 @@ public class Twitter {
         this.setFollowers(followers);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSlug() {
@@ -57,24 +58,19 @@ public class Twitter {
         this.followers = followers;
     }
 
-    public List<Tweet> getTweets() {
+    public Set<Tweet> getTweets() {
         return tweets;
     }
 
-    public void setTweets(List<Tweet> tweets) {
+    public void setTweets(Set<Tweet> tweets) {
         this.tweets = tweets;
     }
 
-    public Map<Long, Tweet> tweetsMappedByUUID() {
-        Map<Long, Tweet> tweetsMappedById = new HashMap<>();
-        List<Tweet> tweets = this.tweets;
+    public Set<Currency> getCurrencies() {
+        return currencies;
+    }
 
-        if (tweets != null) {
-            for (Tweet tweet : tweets) {
-                tweetsMappedById.put(tweet.getUUID(), tweet);
-            }
-        }
-
-        return tweetsMappedById;
+    public void setCurrencies(Set<Currency> currencies) {
+        this.currencies = currencies;
     }
 }

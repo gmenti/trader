@@ -12,7 +12,7 @@ public class TwitterProfilePage {
     private final int followers;
     private final ArrayList<TweetElement> timeline;
 
-    protected TwitterProfilePage(String pageName) throws IOException {
+    TwitterProfilePage(String pageName) throws IOException {
         Document document = Jsoup
             .connect(TwitterScrapper.URL + pageName)
             .get();
@@ -23,10 +23,16 @@ public class TwitterProfilePage {
     }
 
     private int loadFollowers(Document document) {
-        return Integer.parseInt(document
-            .select(".ProfileNav-item--followers .ProfileNav-value")
-            .attr("data-count")
-        );
+        try {
+            return Integer.parseInt(document
+                .select(".ProfileNav-item--followers .ProfileNav-value")
+                .attr("data-count")
+            );
+        } catch (NumberFormatException e) {
+            //
+        }
+
+        return 0;
     }
 
     private ArrayList<TweetElement> loadTimeline(Document document) {
