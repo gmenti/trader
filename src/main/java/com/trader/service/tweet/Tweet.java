@@ -1,19 +1,24 @@
 package com.trader.service.tweet;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.trader.service.twitter.Twitter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
+@Table(uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"id", "uuid"}),
+})
 public class Tweet {
     @Id
+    @GeneratedValue
     private long id;
+
+    @NotNull
+    private long UUID;
 
     @ManyToOne
     @JoinColumn(name = "twitter_id")
@@ -30,14 +35,15 @@ public class Tweet {
     private int favorites;
 
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date createdAt;
 
     protected Tweet() {
         //
     }
 
-    public Tweet(long id, Twitter twitter, String message, int retweets, int favorites, Date createdAt) {
-        this.id = id;
+    public Tweet(long UUID, Twitter twitter, String message, int retweets, int favorites, Date createdAt) {
+        this.UUID = UUID;
         this.twitter = twitter;
         this.message = message;
         this.retweets = retweets;
@@ -79,5 +85,25 @@ public class Tweet {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(long UUID) {
+        this.UUID = UUID;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setTwitter(Twitter twitter) {
+        this.twitter = twitter;
     }
 }

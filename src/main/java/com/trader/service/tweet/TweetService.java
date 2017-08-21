@@ -13,11 +13,15 @@ public class TweetService {
         this.repository = repository;
     }
 
+    public Iterable<Tweet> findAll() {
+        return this.repository.findAllByOrderByCreatedAtDesc();
+    }
+
     public Tweet save(Tweet tweet) {
         return this.repository.save(tweet);
     }
 
-    public Tweet create(long id, Twitter twitter, String message, int retweets, int favorites, Date createdAt) {
-        return this.save(new Tweet(id, twitter, message, retweets, favorites, createdAt));
+    public Tweet create(long uuid, Twitter twitter, String message, int retweets, int favorites, Date createdAt) {
+        return this.save(new Tweet(uuid, twitter, message, retweets, favorites, createdAt));
     }
 }

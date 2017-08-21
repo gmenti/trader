@@ -14,7 +14,7 @@ public class Twitter {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "twitter", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Tweet> tweets;
 
     @NotNull
@@ -29,8 +29,8 @@ public class Twitter {
     }
 
     Twitter(String slug, int followers) {
-        this.slug = slug.toLowerCase();
-        this.followers = followers;
+        this.setSlug(slug);
+        this.setFollowers(followers);
     }
 
     public Long getId() {
@@ -65,16 +65,14 @@ public class Twitter {
         this.tweets = tweets;
     }
 
-    public Map<Long, Tweet> getTweetsMappedById() {
+    public Map<Long, Tweet> getTweetsMappedByUUID() {
         Map<Long, Tweet> tweetsMappedById = new HashMap<>();
         Set<Tweet> tweets = this.getTweets();
 
-        if (tweets == null) {
-            return tweetsMappedById;
-        }
-
-        for (Tweet tweet : tweets) {
-            tweetsMappedById.put(tweet.getId(), tweet);
+        if (tweets != null) {
+            for (Tweet tweet : tweets) {
+                tweetsMappedById.put(tweet.getUUID(), tweet);
+            }
         }
 
         return tweetsMappedById;

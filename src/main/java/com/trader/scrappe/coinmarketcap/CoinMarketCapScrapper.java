@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CoinMarketCapScrapper {
-    public final static String URL = "https://coinmarketcap.com/";
+    protected final static String URL = "https://coinmarketcap.com/";
 
     @Async
     public CompletableFuture<CoinMarketCapCurrencyPage> getCurrencyPage(String currencyName) {

@@ -34,8 +34,12 @@ public class TwitterProfilePage {
         Element timeLine = document.getElementById("stream-items-id");
 
         if (timeLine != null) {
-            timeLine.children().forEach((Element tweetElement) -> {
-                timeline.add(new TweetElement(tweetElement));
+            timeLine.children().forEach((Element element) -> {
+                TweetElement tweetElement = new TweetElement(element);
+
+                if (tweetElement.getAuthor().equals(this.getSlug())) {
+                    timeline.add(new TweetElement(element));
+                }
             });
         }
 

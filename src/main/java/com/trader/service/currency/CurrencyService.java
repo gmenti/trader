@@ -25,7 +25,7 @@ public class CurrencyService {
         return repository.findAll();
     }
 
-    public Map<String, Currency> getCurrenciesMappedByAbbreviation() {
+    public Map<String, Currency> findAllMappedByAbbreviation() {
         Map<String, Currency> mapByAbbreviation = new HashMap<>();
 
         for (Currency currency : this.findAll()) {
