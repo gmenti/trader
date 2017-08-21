@@ -3,10 +3,12 @@ package com.trader.service.currency;
 import com.trader.service.twitter.Twitter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 @Entity
 public class Currency {
@@ -14,9 +16,7 @@ public class Currency {
     @GeneratedValue
     private Long id;
 
-    @Null
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "twitter_id")
+    @ManyToOne
     private Twitter twitter;
 
     @NotNull
@@ -55,13 +55,13 @@ public class Currency {
         this.id = id;
     }
 
-    public Twitter getTwitter() {
+    /*public Twitter getTwitter() {
         return twitter;
     }
 
     public void setTwitter(Twitter twitter) {
         this.twitter = twitter;
-    }
+    }*/
 
     public String getBaseAddress() {
         return baseAddress;

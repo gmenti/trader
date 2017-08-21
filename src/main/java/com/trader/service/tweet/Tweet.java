@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"id", "uuid"}),
+    @UniqueConstraint(columnNames = {"twitter_id", "UUID"}),
 })
 public class Tweet {
     @Id
@@ -18,10 +18,11 @@ public class Tweet {
     private long id;
 
     @NotNull
-    private long UUID;
-
     @ManyToOne
     private Twitter twitter;
+
+    @NotNull
+    private long UUID;
 
     @NotNull
     @Length(min = 0, max = 1000)

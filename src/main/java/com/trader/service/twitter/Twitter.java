@@ -1,5 +1,6 @@
 package com.trader.service.twitter;
 
+import com.trader.service.currency.Currency;
 import com.trader.service.tweet.Tweet;
 
 import javax.persistence.*;
@@ -13,6 +14,9 @@ public class Twitter {
     @Id
     @GeneratedValue
     private Long id;
+
+    @OneToMany
+    private List<Currency> currencies;
 
     @OneToMany
     private List<Tweet> tweets;
@@ -65,14 +69,24 @@ public class Twitter {
         this.tweets = tweets;
     }
 
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(List<Currency> currencies) {
+        this.currencies = currencies;
+    }
+
     public Map<Long, Tweet> tweetsMappedByUUID() {
         Map<Long, Tweet> tweetsMappedById = new HashMap<>();
-        List<Tweet> tweets = this.tweets;
+        List<Tweet> tweets = this.getTweets();
 
         if (tweets != null) {
             for (Tweet tweet : tweets) {
                 tweetsMappedById.put(tweet.getUUID(), tweet);
             }
+        } else {
+            System.out.println("IS NULL");
         }
 
         return tweetsMappedById;

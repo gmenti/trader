@@ -102,6 +102,7 @@ class TwitterFetcher implements Runnable {
     public void run() {
         long startedAt = System.currentTimeMillis();
 
+        Map<String, Currency> currenciesMappedByAbbreviation = this.currencyService.findAllMappedByAbbreviation();
         Map<String, Twitter> twittersMappedBySlug = this.twitterService.findAllMappedBySlug();
 
         int countOfTwittersToProcess = this.currenciesAbbreviationsMappedByTwitter.size();
@@ -122,9 +123,18 @@ class TwitterFetcher implements Runnable {
 
                             twittersMappedBySlug.put(twitter.getSlug(), twitter);
                         } else {
-                            twitter.setFollowers(twitter.getFollowers());
+                            twitter.setFollowers(twitterProfilePage.getFollowers());
                             this.twitterService.save(twitter);
                         }
+
+                        /*for (String abbreviation : abbreviations) {
+                            Currency currency = currenciesMappedByAbbreviation.get(abbreviation);
+
+                            if (currency.getTwitter() != twitter) {
+                                currency.setTwitter(twitter);
+                                this.currencyService.save(currency);
+                            }
+                        }*/
 
                         Map<Long, Tweet> tweetsMappedById = twitter.tweetsMappedByUUID();
 
@@ -151,7 +161,10 @@ class TwitterFetcher implements Runnable {
                     }
 
                     countOfTwittersProcessed.incrementAndGet();
-                });
+                }).exceptionally(e -> {
+                e.printStackTrace();
+                return null;
+            });
         });
 
         while (countOfTwittersToProcess != countOfTwittersProcessed.get()) {
