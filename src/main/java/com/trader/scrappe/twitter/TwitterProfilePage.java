@@ -12,7 +12,7 @@ public class TwitterProfilePage {
     private final int followers;
     private final ArrayList<TweetElement> timeline;
 
-    protected TwitterProfilePage(String pageName) throws IOException {
+    TwitterProfilePage(String pageName) throws IOException {
         Document document = Jsoup
             .connect(TwitterScrapper.URL + pageName)
             .get();

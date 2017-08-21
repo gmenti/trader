@@ -1,12 +1,10 @@
 package com.trader.service.currency;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.trader.service.twitter.Twitter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
@@ -14,9 +12,13 @@ import javax.validation.constraints.NotNull;
 public class Currency {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
-    @ManyToOne
+    @Column(name = "twitter_id", insertable = false, updatable = false)
+    private Long twitterId;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Twitter twitter;
 
     @NotNull
@@ -47,21 +49,17 @@ public class Currency {
         this.setBaseAddress(baseAddress);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /*public Twitter getTwitter() {
+    public Twitter getTwitter() {
         return twitter;
     }
 
     public void setTwitter(Twitter twitter) {
         this.twitter = twitter;
-    }*/
+    }
 
     public String getBaseAddress() {
         return baseAddress;
@@ -101,5 +99,13 @@ public class Currency {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation.toUpperCase();
+    }
+
+    public Long getTwitterId() {
+        return twitterId;
+    }
+
+    public void setTwitterId(Long twitterId) {
+        this.twitterId = twitterId;
     }
 }
