@@ -44,12 +44,8 @@ class BaseController {
     List<TweetAnalyseResponse> analyse() {
         List<TweetAnalyseResponse> analyseResponses = new LinkedList<>();
 
-        tweetService.findAll().forEach(tweet -> {
-            Twitter twitter = tweet.getTwitter();
-
-            twitter.getCurrencies().forEach(currency -> {
-                analyseResponses.add(new TweetAnalyseResponse(tweet, twitter, currency));
-            });
+        tweetService.findAllOfLast24HoursOrderByCreatedAtDesc().forEach(tweet -> {
+            analyseResponses.add(new TweetAnalyseResponse(tweet));
         });
 
         return analyseResponses;

@@ -17,7 +17,7 @@ public class TwitterProfilePage {
             .connect(TwitterScrapper.URL + pageName)
             .get();
 
-        this.slug = pageName;
+        this.slug = pageName.toLowerCase();
         this.followers = this.loadFollowers(document);
         this.timeline = this.loadTimeline(document);
     }

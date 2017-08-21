@@ -28,7 +28,7 @@ public class TweetElement {
     }
 
     private String loadAuthor(Element element) {
-        return element.select(".username > b").text();
+        return element.select(".username > b").text().toLowerCase();
     }
 
     private Date loadCreatedAt(Element element) {

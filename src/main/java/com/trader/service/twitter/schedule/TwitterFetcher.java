@@ -99,7 +99,7 @@ class TwitterFetcher implements Runnable {
         }
     }
 
-    @Scheduled(fixedDelay = 1) // 1ms
+    @Scheduled(fixedDelay = 45000) // 45s
     public void run() {
         long startedAt = System.currentTimeMillis();
 

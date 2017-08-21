@@ -4,6 +4,7 @@ import com.trader.service.twitter.Twitter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +42,14 @@ public class TweetService {
 
     public Iterable<Tweet> findAllByTwitterId(long twitterId) {
         return this.repository.findAllByTwitterId(twitterId);
+    }
+
+    public Iterable<Tweet> findAllOfLast24HoursOrderByCreatedAtDesc() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+
+        return this.repository.findAllByCreatedAtAfterOrderByCreatedAtDesc(calendar.getTime());
     }
 
     @Transactional(readOnly = true)
