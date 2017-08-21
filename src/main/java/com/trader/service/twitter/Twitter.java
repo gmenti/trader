@@ -5,8 +5,8 @@ import com.trader.service.tweet.Tweet;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Entity
 public class Twitter {
@@ -14,8 +14,8 @@ public class Twitter {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Tweet> tweets;
+    @OneToMany
+    private List<Tweet> tweets;
 
     @NotNull
     @Column(unique = true)
@@ -57,17 +57,17 @@ public class Twitter {
         this.followers = followers;
     }
 
-    public Set<Tweet> getTweets() {
+    public List<Tweet> getTweets() {
         return tweets;
     }
 
-    public void setTweets(Set<Tweet> tweets) {
+    public void setTweets(List<Tweet> tweets) {
         this.tweets = tweets;
     }
 
-    public Map<Long, Tweet> getTweetsMappedByUUID() {
+    public Map<Long, Tweet> tweetsMappedByUUID() {
         Map<Long, Tweet> tweetsMappedById = new HashMap<>();
-        Set<Tweet> tweets = this.getTweets();
+        List<Tweet> tweets = this.tweets;
 
         if (tweets != null) {
             for (Tweet tweet : tweets) {

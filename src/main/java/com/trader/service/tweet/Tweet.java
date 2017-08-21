@@ -21,7 +21,6 @@ public class Tweet {
     private long UUID;
 
     @ManyToOne
-    @JoinColumn(name = "twitter_id")
     private Twitter twitter;
 
     @NotNull

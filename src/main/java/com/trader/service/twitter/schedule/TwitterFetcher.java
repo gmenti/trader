@@ -126,7 +126,7 @@ class TwitterFetcher implements Runnable {
                             this.twitterService.save(twitter);
                         }
 
-                        Map<Long, Tweet> tweetsMappedById = twitter.getTweetsMappedByUUID();
+                        Map<Long, Tweet> tweetsMappedById = twitter.tweetsMappedByUUID();
 
                         for (TweetElement tweetElement : twitterProfilePage.getTimeline()) {
                             Tweet tweet = tweetsMappedById.get(tweetElement.getId());
