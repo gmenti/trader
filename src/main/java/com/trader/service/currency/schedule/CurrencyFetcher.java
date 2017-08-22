@@ -55,7 +55,7 @@ class CurrencyFetcher implements Runnable {
     }
 
     @Override
-    @Scheduled(fixedRate = 86400000) // 1 day
+    @Scheduled(initialDelay = 0, fixedRate = 86400000) // 1 day
     public void run() {
         long startedAt = System.currentTimeMillis();
         CurrenciesResponse response = this.bittrexIntegration.getCurrencies();

@@ -42,7 +42,7 @@ class TwitterFetcher implements Runnable {
         this.currenciesAbbreviationsMappedByTwitter = new ConcurrentHashMap<>();
     }
 
-    @Scheduled(initialDelay = 0, fixedRate = 43200000) // 12hrs
+    @Scheduled(initialDelay = 1000, fixedRate = 43200000) // 12hrs
     private void loadCurrenciesAbbreviationsMappedByTwitter() {
         long startedAt = System.currentTimeMillis();
         int initialSize = this.currenciesAbbreviationsMappedByTwitter.size();
@@ -99,7 +99,7 @@ class TwitterFetcher implements Runnable {
         }
     }
 
-    @Scheduled(fixedDelay = 45000) // 45s
+    @Scheduled(initialDelay = 2000, fixedDelay = 45000) // 45s
     public void run() {
         long startedAt = System.currentTimeMillis();
 
