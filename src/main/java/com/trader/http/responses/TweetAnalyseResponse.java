@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-
 class CurrencyResponse {
     private final String name;
     private final String abbreviation;

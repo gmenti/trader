@@ -7,6 +7,7 @@ import com.trader.service.tweet.Tweet;
 import com.trader.service.tweet.TweetService;
 import com.trader.service.twitter.Twitter;
 import com.trader.service.twitter.TwitterService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +41,7 @@ class BaseController {
         return tweetService.findAll();
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping("/analyse")
     List<TweetAnalyseResponse> analyse() {
         List<TweetAnalyseResponse> analyseResponses = new LinkedList<>();
