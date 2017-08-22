@@ -13,7 +13,7 @@ logging:
   level:
     org:
       springframework:
-        web: debug
+        web: ERROR
       hibernate: ERROR
 
 server:
