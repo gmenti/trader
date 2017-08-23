@@ -47,7 +47,7 @@ public class Tweet {
         //
     }
 
-    public Tweet(long UUID, Twitter twitter, String message, int retweets, int favorites, Date createdAt) {
+    Tweet(long UUID, Twitter twitter, String message, int retweets, int favorites, Date createdAt) {
         this.UUID = UUID;
         this.twitter = twitter;
         this.message = message;
