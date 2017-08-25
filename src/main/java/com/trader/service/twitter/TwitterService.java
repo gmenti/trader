@@ -13,6 +13,16 @@ public class TwitterService {
         this.repository = repository;
     }
 
+    private Map<String, Twitter> mapTwitterBySlug(Iterable<Twitter> twitters) {
+        Map<String, Twitter> mapBySlug = new HashMap<>();
+
+        for (Twitter twitter : twitters) {
+            mapBySlug.put(twitter.getSlug(), twitter);
+        }
+
+        return mapBySlug;
+    }
+
     public Twitter create(String slug, int followers) {
         return this.save(new Twitter(slug, followers));
     }
@@ -25,13 +35,11 @@ public class TwitterService {
         return this.repository.findAll();
     }
 
+    public Twitter findOne(long id) {
+        return this.repository.findOne(id);
+    }
+
     public Map<String, Twitter> findAllMappedBySlug() {
-        Map<String, Twitter> mapBySlug = new HashMap<>();
-
-        for (Twitter twitter : this.findAll()) {
-            mapBySlug.put(twitter.getSlug(), twitter);
-        }
-
-        return mapBySlug;
+        return this.mapTwitterBySlug(this.findAll());
     }
 }

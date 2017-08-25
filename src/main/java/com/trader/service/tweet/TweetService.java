@@ -1,10 +1,10 @@
 package com.trader.service.tweet;
 
 import com.trader.service.twitter.Twitter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,53 +27,41 @@ public class TweetService {
         return tweetsMappedByUUID;
     }
 
-    public Iterable<Tweet> findAll() {
-        return this.repository.findAllByOrderByCreatedAtDesc();
-    }
-
-    @Transactional(readOnly = true)
-    public Iterable<Tweet> findAllWithCurrency() {
-        Iterable<Tweet> tweets = this.repository.findAll();
-
-        tweets.forEach(tweet -> System.out.println(tweet.getTwitter().getCurrencies().size()));
-
-        return tweets;
-    }
-
-    public Iterable<Tweet> findAllByTwitterId(long twitterId) {
-        return this.repository.findAllByTwitterId(twitterId);
-    }
-
-    public Iterable<Tweet> findAllOfLast24HoursOrderByCreatedAtDesc() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-
-        return this.repository.findAllByCreatedAtAfterOrderByCreatedAtDesc(calendar.getTime());
-    }
-
-    @Transactional(readOnly = true)
-    public Map<Long, Tweet> findAllMappedByUUID() {
-        return this.mapTweetsByUUID(
-            this.findAll()
-        );
-    }
-
-    @Transactional(readOnly = true)
-    public Map<Long, Map<Long, Tweet>> findAllMappedByUUIDMappedByTwitterId() {
+    private Map<Long, Map<Long, Tweet>> mapByUUIDMappedByTwitterId(Map<Long, Tweet> tweetsMappedByUUID) {
         Map<Long, Map<Long, Tweet>> tweetsMappedByUUIDMappedByTwitterId = new HashMap<>();
 
-        this.findAllMappedByUUID().forEach((uuid, tweet) -> {
-            Map<Long, Tweet> tweetsMappedByUUID = tweetsMappedByUUIDMappedByTwitterId.getOrDefault(
+        tweetsMappedByUUID.forEach((uuid, tweet) -> {
+            Map<Long, Tweet> mapOfTweetsByUUID = tweetsMappedByUUIDMappedByTwitterId.getOrDefault(
                 tweet.getTwitterId(),
                 new HashMap<>()
             );
 
-            tweetsMappedByUUID.put(uuid, tweet);
-            tweetsMappedByUUIDMappedByTwitterId.put(tweet.getTwitterId(), tweetsMappedByUUID);
+            mapOfTweetsByUUID.put(uuid, tweet);
+
+            tweetsMappedByUUIDMappedByTwitterId.put(tweet.getTwitterId(), mapOfTweetsByUUID);
         });
 
         return tweetsMappedByUUIDMappedByTwitterId;
+    }
+
+    public Iterable<Tweet> findAll() {
+        return this.repository.findAllByOrderByCreatedAtDesc();
+    }
+
+    public Page<Tweet> findAll(Pageable pageable) {
+        return this.repository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+
+    public Iterable<Tweet> findAllByTwitterId(long twitterId) {
+        return this.repository.findAllByTwitterIdOrderByCreatedAtDesc(twitterId);
+    }
+
+    public Map<Long, Tweet> findAllMappedByUUID() {
+        return this.mapTweetsByUUID(this.findAll());
+    }
+
+    public Map<Long, Map<Long, Tweet>> findAllMappedByUUIDMappedByTwitterId() {
+        return this.mapByUUIDMappedByTwitterId(this.findAllMappedByUUID());
     }
 
     public Tweet save(Tweet tweet) {
